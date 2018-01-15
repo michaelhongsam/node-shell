@@ -31,11 +31,37 @@ module.exports = {
         });   
     },
     head: function(arr){
-        this.fs.readFile(arr[0],function(err,data){
-            submit = '';
-            for(var keys in data){
-                console.log(data[keys]);
-            }
-        });   
+        this.fs.readFile(arr[0], 'utf8', function(err,data){
+            process.stdout.write(data.split('\n').slice(0,5).join('\n'));
+        });
     },
+    tail: function(arr){
+        this.fs.readFile(arr[0], 'utf8', function(err,data){
+            process.stdout.write(data.split('\n').slice(-5).join('\n'));
+        });
+    },
+    sort: function(arr){
+        this.fs.readFile(arr[0], 'utf8', function(err,data){
+            process.stdout.write(data.split('\n').sort().join('\n'));
+        });
+    },
+    wc: function(arr){
+        this.fs.readFile(arr[0], 'utf8', function(err,data){
+            process.stdout.write('Line Count: ' + data.split('\n').length);
+            process.stdout.write(' Word Count: ' + data.split(/\s\s*/g).length);
+            process.stdout.write(' Character Count: ' + data.length);
+        });
+    },
+    uniq: function(arr){
+        this.fs.readFile(arr[0], 'utf8', function(err,data){
+            let output = '';
+            const split = data.split('\n');
+            for(var idx=0; idx<split.length-1; idx++){
+                if(split[idx] !== split[idx+1]){
+                    output += split[idx] + '\n';
+                }
+            }
+            process.stdout.write(output);
+        })
+    }
 }
