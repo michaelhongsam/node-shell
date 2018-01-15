@@ -14,7 +14,7 @@ process.stdin.on('data', function (data) {
     
     commands[cmd](argument);
   
-    process.stdout.write('\nYou typed: ' + cmd);
+    process.stdout.write('\nYou typed: ' + cmd + ' ' + argument.join(' '));
     process.stdout.write('\nprompt > ');
   
   });
